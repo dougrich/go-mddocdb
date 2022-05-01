@@ -23,7 +23,7 @@ then
     exitcode=-1
 fi
 
-go build -o bin/mddcdb .
+go build -o bin/mddocdb .
 if [ $? -ne 0 ]
 then
     echo -e "\033[1mBuild needs to pass before commit\033[0m"

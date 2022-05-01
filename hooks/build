@@ -13,7 +13,7 @@ CHANGES=$(git ls-files -m -o --exclude-standard)
 if [ "$SHA" != "$last_build_commit" ] || [ ! -z "$CHANGES" ]
 then
     echo "rebuilding..."
-    go build -o bin/mddcdb .
+    go build -o bin/mddocdb .
     test -f ./local.env && $((cat local.env | grep -v last_build_commit)> local.new.env)
     echo "last_build_commit=$SHA" >> local.new.env
     test -f ./local.env && rm local.env
