@@ -6,61 +6,31 @@ if test -f ./local.env; then
     source ./local.env
 fi 
 
-
 # Allows us to read user input below, assigns stdin to keyboard
 exec < /dev/tty
 
-echo -e "\033[1mCreating a new go-pkg\033[0m"
-while true; do
-    read -p "Do you wish to continue (y/n)" yn
-    case $yn in
-        [Yy]* ) break;;
-        [Nn]* ) exit 0;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
-
-if [ -z $NAME ]
-then
-    echo -e "\033[1mname for repository\033[0m"
-    read -r NAME
-fi
-OWNER=$(gh config get user -h github.com)
-# check that we have node installed
 while :
 do
-    gomplate=$(gomplate --version)
+    goversion=$(go version)
     if [ 0 -ne $? ]
     then
-        echo -e "\033[1mgomplate needs to be installed\033[0m (https://docs.gomplate.ca/installing)"
-        echo -e "Press enter once gomplate is installed"
-        read -r gomplate
+        echo -e "\033[1mgo developer tools need to be installed\033[0m (https://go.dev/doc/install)"
+        echo -e "Press enter once go is installed"
+        read -r goversion
     else
         break
     fi
 done
 
-export NAME=$NAME
-export OWNER=$OWNER
-export SAFENAME=$(echo "$NAME" | tr -d "go-" | tr -d "-")
-gomplate -f template/hooks/build.template > hooks/build
-chmod +x hooks/build
-gomplate -f template/hooks/lint.template > hooks/lint
-chmod +x hooks/lint
-gomplate -f template/hooks/pre-commit.template > hooks/pre-commit
-chmod +x hooks/pre-commit
-gomplate -f template/hooks/test.template > hooks/test
-chmod +x hooks/test
-gomplate -f template/README.md.template > README.md
-gomplate -f template/go.mod.template > go.mod
-gomplate -f template/base.go.template > $NAME.go
-gomplate -f template/base_test.go.template > $(echo $NAME)_test.go
-rm hooks/post-checkout
-gomplate -f template/hooks/post-checkout.template > hooks/post-checkout
-chmod +x hooks/post-checkout
-rm -rf template
-go fmt .
-go test .
-git add .
-git commit -am "build: initialized template for $NAME"
-git push
+while :
+do
+    gccommit=$(git-conventional-commits --version)
+    if [ 0 -ne $? ]
+    then
+        echo -e "\033[1mgit-conventional-commits needs to be install\033[0m (https://github.com/qoomon/git-conventional-commits)"
+        echo -e "Press enter once it is installed"
+        read -r goversion
+    else
+        break
+    fi
+done

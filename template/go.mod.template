@@ -1,3 +1,0 @@
-module github.com/{{ .Env.OWNER }}/{{ .Env.NAME }}
-
-go 1.17

@@ -23,7 +23,7 @@ then
     exitcode=-1
 fi
 
-go build -o bin/{{ .Env.SAFENAME }} .
+go build -o bin/mddcdb .
 if [ $? -ne 0 ]
 then
     echo -e "\033[1mBuild needs to pass before commit\033[0m"
