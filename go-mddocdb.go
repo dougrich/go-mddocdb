@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	extensions = parser.CommonExtensions | parser.AutoHeadingIDs
+	extensions = parser.CommonExtensions | parser.AutoHeadingIDs | parser.NonBlockingSpace
 	titleregex = regexp.MustCompile(`<h1 id=".*?">(.*?)</h1>`)
 )
 
