@@ -1,0 +1,36 @@
+#!/bin/bash
+if test -f ./remote.env; then
+    source ./remote.env
+fi 
+if test -f ./local.env; then
+    source ./local.env
+fi 
+
+# Allows us to read user input below, assigns stdin to keyboard
+exec < /dev/tty
+
+while :
+do
+    goversion=$(go version)
+    if [ 0 -ne $? ]
+    then
+        echo -e "\033[1mgo developer tools need to be installed\033[0m (https://go.dev/doc/install)"
+        echo -e "Press enter once go is installed"
+        read -r goversion
+    else
+        break
+    fi
+done
+
+while :
+do
+    gccommit=$(git-conventional-commits --version)
+    if [ 0 -ne $? ]
+    then
+        echo -e "\033[1mgit-conventional-commits needs to be install\033[0m (https://github.com/qoomon/git-conventional-commits)"
+        echo -e "Press enter once it is installed"
+        read -r goversion
+    else
+        break
+    fi
+done

@@ -1,0 +1,5 @@
+# {{ .Env.NAME }}
+
+[![build](https://img.shields.io/github/workflow/status/{{ .Env.OWNER }}/{{ .Env.NAME }}/build?style=flat-square)](https://github.com/{{ .Env.OWNER }}/{{ .Env.NAME }}/actions/workflows/build.yml)
+
+{{ .Env.NAME }} is a go package

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+if test -f ./remote.env; then
+    source ./remote.env
+fi 
+if test -f ./local.env; then
+    source ./local.env
+fi 
+
+HASFMT=$(gofmt -l .)
+EXITCODE=0
+if [ ! -z "$HASFMT" ]
+then
+    echo -e "\033[1mFiles need to be linted before commit:\033[0m\n$HASFMT"
+    exitcode=-1
+fi
+
+go test .
+if [ $? -ne 0 ]
+then
+    echo -e "\033[1mTests need to pass before commit\033[0m"
+    echo ""
+    exitcode=-1
+fi
+
+go build -o bin/{{ .Env.SAFENAME }} .
+if [ $? -ne 0 ]
+then
+    echo -e "\033[1mBuild needs to pass before commit\033[0m"
+    echo ""
+    exitcode=-1
+fi
+
+HASCHANGES=$(git ls-files -m -o --exclude-standard)
+if [ ! -z "$HASCHANGES" ]
+then
+    echo -e "\033[1mNo untracked files or unstaged changes before commit\033[0m"
+    echo $HASCHANGES
+    echo ""
+    exitcode=-1
+fi
+
+exit $exitcode

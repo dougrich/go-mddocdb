@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if test -f ./remote.env; then
+    source ./remote.env
+fi 
+if test -f ./local.env; then
+    source ./local.env
+fi
+
+# use git-conventional-commits, see https://github.com/qoomon/git-conventional-commits
+git-conventional-commits commit-msg-hook "$1"

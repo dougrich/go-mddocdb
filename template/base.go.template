@@ -1,0 +1,5 @@
+package {{ .Env.SAFENAME }}
+
+func Placeholder() int {
+    return 2
+}

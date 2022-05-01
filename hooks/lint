@@ -1,0 +1,3 @@
+#!/bin/bash
+echo -e "No linting for sm-0"
+
